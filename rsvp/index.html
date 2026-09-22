@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>出席回覆 — 大成 &amp; 奕鈞</title>
+<meta name="description" content="大成 &amp; 奕鈞 婚禮出席回覆 · 2027.01.10">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400&family=Noto+Serif+TC:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../styles.css">
+</head>
+<body class="rsvp-body">
+
+<div class="rsvp-page">
+
+  <nav class="rsvp-nav">
+    <a href="../">← 大成 &amp; 奕鈞 · 2027.01.10</a>
+  </nav>
+
+  <h1 class="rsvp-title">大成 &amp; 奕鈞　婚禮出席回覆</h1>
+
+  <p class="rsvp-meta">
+    大成 · 奕鈞<br>
+    <strong>2027 年 1 月 10 日（日）</strong><br>
+    10:45 證婚儀式入場｜12:00 午宴入席<br>
+    台北萬豪酒店 8F Garden Villa
+  </p>
+
+  <form id="rsvpForm" novalidate>
+
+    <p class="form-section-title">基本資料</p>
+
+    <div class="field">
+      <label class="field-label" for="f-name">您的姓名（若不止一人，請填寫全部參與人姓名）<span class="req">*</span></label>
+      <input type="text" id="f-name" name="name" required>
+    </div>
+
+    <div class="field">
+      <label class="field-label" for="f-phone">您的聯絡電話<span class="req">*</span></label>
+      <input type="tel" id="f-phone" name="phone" required>
+    </div>
+
+    <div class="field">
+      <label class="field-label" for="f-email">您的電子郵件<span class="req">*</span></label>
+      <input type="email" id="f-email" name="email" required>
+    </div>
+
+    <p class="form-section-title">【午宴】出席資訊</p>
+
+    <div class="field">
+      <label class="field-label" for="f-lunch-count">當天包含自己在內的【午宴】總出席人數？<span class="req">*</span></label>
+      <p class="field-hint" style="margin-top:-2px;margin-bottom:10px;">若是坐兒童椅或無需入座的孩童則不用算在內</p>
+      <input type="number" id="f-lunch-count" name="lunchCount" min="1" required>
+    </div>
+
+    <div class="field">
+      <label class="field-label" for="f-kids-chair">【午宴】兒童椅需求數量？<span class="req">*</span></label>
+      <input type="number" id="f-kids-chair" name="kidsChair" min="0" value="0" required>
+    </div>
+
+    <div class="field">
+      <label class="field-label" for="f-veggie">【午宴】上述素食人數<span class="req">*</span></label>
+      <p class="field-hint" style="margin-top:-2px;margin-bottom:10px;">若皆無需求，請填「0」</p>
+      <input type="number" id="f-veggie" name="veggieCount" min="0" value="0" required>
+    </div>
+
+    <div class="field">
+      <label class="field-label" for="f-special">【午宴】特殊餐飲需求</label>
+      <p class="field-hint" style="margin-top:-2px;margin-bottom:10px;">如：不吃牛1人，如無可留空</p>
+      <input type="text" id="f-special" name="specialDiet">
+    </div>
+
+    <p class="form-section-title">【證婚儀式】出席資訊</p>
+    <p class="field-hint" style="margin-bottom:20px;line-height:1.9;">
+      除了午宴之外，當天稍早也準備了戶外證婚儀式，就在婚宴同場地的戶外草皮舉行，誠摯邀請您一起見證這重要的時刻！<br>
+      10:45 開放入場｜11:00 準時開始
+    </p>
+
+    <div class="field">
+      <label class="field-label">當天包含自己在內的【證婚儀式】總出席人數？<span class="req">*</span></label>
+      <div class="choice-group">
+        <label><input type="radio" name="ceremonyAttend" value="no" required> 都不會參加【證婚儀式】，午宴見！</label>
+        <label><input type="radio" name="ceremonyAttend" value="yes"> 會出席，人數：</label>
+      </div>
+      <div class="conditional" id="ceremonyCountWrap" style="display:none;">
+        <input type="number" id="f-ceremony-count" name="ceremonyCount" min="1">
+      </div>
+    </div>
+
+    <p class="form-section-title">親友喜帖寄送資訊</p>
+
+    <div class="field">
+      <label class="field-label">希望收到喜帖的方式（可複選）<span class="req">*</span></label>
+      <div class="choice-group">
+        <label><input type="checkbox" id="f-invite-paper" name="invitePaper"> 請寄給我紙本喜帖</label>
+        <label><input type="checkbox" id="f-invite-e" name="inviteE"> 請寄給我電子喜帖</label>
+      </div>
+      <div class="conditional" id="paperAddrWrap" style="display:none;">
+        <label class="field-label" for="f-address">紙本喜帖寄送地址（請記得填上郵遞區號唷！）</label>
+        <input type="text" id="f-address" name="address">
+      </div>
+      <div class="conditional" id="eInviteEmailWrap" style="display:none;">
+        <label class="field-label" for="f-invite-email">電子喜帖收件 Email</label>
+        <input type="email" id="f-invite-email" name="inviteEmail">
+      </div>
+    </div>
+
+    <div class="submit-row">
+      <button type="submit" class="submit-btn" id="submitBtn">送 出 回 覆</button>
+      <p class="form-error" id="formError">送出時發生問題，請稍後再試一次，或透過 LINE 官方帳號 @510bpgaz 直接聯絡我們。</p>
+    </div>
+
+  </form>
+
+  <div class="rsvp-success" id="rsvpSuccess" style="display:none;">
+    <p class="icon">💌</p>
+    <p>謝謝您撥空填寫婚禮出席表單，<br>也謝謝您願意來見證我們的重要時刻，<br>期待婚禮當天與您相見！</p>
+    <p>婚禮相關資訊與當天的最新消息，將透過婚禮官方 LINE 與大家分享，<br>
+      歡迎搜尋「<a href="https://line.me/R/ti/p/@510bpgaz" target="_blank" rel="noopener">@510bpgaz</a>」加入好友。</p>
+    <p style="margin-top:32px;"><a href="../">← 回首頁</a></p>
+  </div>
+
+</div>
+
+<script src="rsvp.js"></script>
+</body>
+</html>
