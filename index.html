@@ -7,13 +7,16 @@
 <meta name="description" content="大成 &amp; 奕鈞 婚禮邀請 · 2027年1月10日 · 台北萬豪酒店 Garden Villa">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400&family=Noto+Serif+TC:wght@400;500;600&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400&family=LXGW+WenKai+TC:wght@400;700&family=Noto+Serif+TC:wght@400;500;600&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="styles.css">
 </head>
 <body>
 
 <header class="hero" id="top">
-  <div class="hero-photo"></div>
+  <picture class="hero-photo">
+    <source media="(max-width:700px)" srcset="assets/hero-m.jpg">
+    <img src="assets/hero.jpg" alt="大成與奕鈞在園林長廊中" fetchpriority="high">
+  </picture>
   <div class="hero-veil"></div>
   <div class="hero-content">
     <p class="reveal eyebrow" style="--d:0s">SAVE THE DATE</p>
@@ -46,7 +49,7 @@
     <p class="details-note reveal">戶外證婚儀式將於婚宴同場地的戶外草皮舉行，誠摯邀請您一同見證這重要的時刻。</p>
   </section>
 
-  <section class="section" id="schedule">
+  <section class="section alt" id="schedule">
     <p class="section-label reveal">當天流程<br><span class="en">The Schedule</span></p>
 
     <div class="timeline reveal">
@@ -93,20 +96,17 @@
     </div>
   </section>
 
-  <section class="section gallery" id="gallery">
+  <section class="section alt gallery" id="gallery">
     <p class="section-label reveal">婚紗照展示<br><span class="en">Our Story</span></p>
 
     <div class="gallery-grid reveal">
-      <div class="gallery-item is-empty"></div>
-      <div class="gallery-item is-empty"></div>
-      <div class="gallery-item is-empty"></div>
-      <div class="gallery-item is-empty"></div>
-      <div class="gallery-item is-empty"></div>
-      <div class="gallery-item is-empty"></div>
+      <figure class="gallery-item"><img src="assets/g2.jpg" alt="燈籠下的新郎新娘" loading="lazy"></figure>
+      <figure class="gallery-item"><img src="assets/g3.jpg" alt="新郎倚欄微笑" loading="lazy"></figure>
+      <figure class="gallery-item"><img src="assets/g4.jpg" alt="對聯前並肩而坐" loading="lazy"></figure>
+      <figure class="gallery-item"><img src="assets/hero-m.jpg" alt="月洞門前相視" loading="lazy"></figure>
+      <figure class="gallery-item"><img src="assets/hero.jpg" alt="長廊中相擁" loading="lazy"></figure>
+      <figure class="gallery-item"><img src="assets/g1.jpg" alt="新郎中山裝立像" loading="lazy"></figure>
     </div>
-    <!-- 照片到位後，把上面每個 .gallery-item 換成（拿掉 is-empty）：
-         <div class="gallery-item"><img src="assets/gallery-1.jpg" alt=""></div>
-    -->
   </section>
 
   <section class="section rsvp" id="rsvp">
