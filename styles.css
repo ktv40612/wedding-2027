@@ -169,15 +169,6 @@ body{
   color:var(--ink);
   margin-bottom:3.25rem;
 }
-.section-label .en{
-  display:block;
-  margin-top:0.5rem;
-  font-family:var(--serif);
-  font-style:italic;
-  font-size:0.875rem;
-  letter-spacing:.15em;
-  color:var(--red);
-}
 .section-label::after{
   content:'◆';
   display:block;
@@ -192,7 +183,7 @@ body{
   flex-direction:column;
   align-items:center;
   gap:1.75rem;
-  margin-bottom:1.75rem;
+  margin-bottom:2.5rem;
 }
 .details-date{
   font-family:var(--hand);
@@ -225,6 +216,7 @@ body{
   border-top:1px solid var(--line);
   border-bottom:1px solid var(--line);
   padding:1.75rem 0;
+  margin-bottom:2.5rem;
 }
 .timeline-item{
   display:flex;
@@ -536,7 +528,6 @@ body{
 
 
 /* ---------- 電腦版放大 ---------- */
-.section.rsvp .section-label .en{color:#efc47a;}
 
 @media (min-width:1024px){
   html{font-size:18px;}
