@@ -12,7 +12,7 @@
 </head>
 <body>
 
-<header class="hero" id="top">
+<header class="hero protect" id="top">
   <picture class="hero-photo">
     <source media="(max-width:700px)" srcset="assets/hero-m.jpg">
     <img src="assets/hero.jpg" alt="大成與奕鈞在園林長廊中" fetchpriority="high">
@@ -83,7 +83,7 @@
     <p class="details-note reveal">座位表準備中，敬請期待。</p>
   </section>
 
-  <div class="photo-band band-1">
+  <div class="photo-band band-1 protect">
     <picture>
       <source media="(min-width:701px)" srcset="assets/l3.jpg">
       <img src="assets/p2.jpg" alt="新人在燈籠長廊中" loading="lazy">
@@ -126,7 +126,7 @@
     </div>
   </section>
 
-  <div class="photo-band band-2">
+  <div class="photo-band band-2 protect">
     <img class="band-single" src="assets/p1.jpg" alt="新人在燈籠下相視而笑" loading="lazy">
     <div class="band-trip">
       <img src="assets/p1.jpg" alt="新人在燈籠下相視而笑" loading="lazy">
@@ -137,16 +137,33 @@
 
   <section class="section alt gallery" id="gallery">
     <p class="section-label reveal">婚紗照展示</p>
+    <p class="gallery-hint reveal">左右滑動瀏覽</p>
 
-    <div class="gallery-grid">
-      <figure class="gallery-item"><img src="assets/p3.jpg" width="1400" height="2100" alt="對聯前並肩而立" loading="lazy"></figure>
-      <figure class="gallery-item"><img src="assets/l2.jpg" width="1800" height="1200" alt="新娘與盆栽庭院" loading="lazy"></figure>
-      <figure class="gallery-item"><img src="assets/p1.jpg" width="1400" height="2100" alt="燈籠下相視而笑" loading="lazy"></figure>
-      <figure class="gallery-item"><img src="assets/l3.jpg" width="1800" height="1200" alt="新郎倚欄微笑" loading="lazy"></figure>
-      <figure class="gallery-item"><img src="assets/p4.jpg" width="1400" height="2100" alt="月洞門前相擁" loading="lazy"></figure>
-      <figure class="gallery-item"><img src="assets/p2.jpg" width="1400" height="2100" alt="燈籠長廊中並肩而立" loading="lazy"></figure>
-      <figure class="gallery-item"><img src="assets/hero-m.jpg" width="1400" height="2100" alt="月洞門前微笑合影" loading="lazy"></figure>
-      <figure class="gallery-item"><img src="assets/l1.jpg" width="1800" height="1200" alt="長廊中相擁" loading="lazy"></figure>
+    <div class="gallery-scroller protect">
+      <button class="g-btn g-prev" type="button" aria-label="上一張">&#8249;</button>
+      <div class="gallery-track">
+      <figure class="g-item p"><img src="assets/gallery/g01.jpg" width="1067" height="1600" alt="椰林大道牽手漫步" loading="lazy" draggable="false"></figure>
+      <figure class="g-item p"><img src="assets/gallery/g02.jpg" width="1067" height="1600" alt="椰林大道上相視而笑" loading="lazy" draggable="false"></figure>
+      <figure class="g-item l"><img src="assets/gallery/g03.jpg" width="1600" height="1067" alt="新娘手捧花束與頭紗" loading="lazy" draggable="false"></figure>
+      <figure class="g-item l"><img src="assets/gallery/g04.jpg" width="1600" height="1067" alt="圖書館窗前相擁" loading="lazy" draggable="false"></figure>
+      <figure class="g-item l"><img src="assets/gallery/g05.jpg" width="1600" height="1067" alt="校史館階梯上相擁" loading="lazy" draggable="false"></figure>
+      <figure class="g-item p"><img src="assets/gallery/g06.jpg" width="1067" height="1600" alt="額頭相貼的特寫" loading="lazy" draggable="false"></figure>
+      <figure class="g-item p"><img src="assets/gallery/g07.jpg" width="1067" height="1600" alt="椰林大道上擁抱" loading="lazy" draggable="false"></figure>
+      <figure class="g-item p"><img src="assets/gallery/g08.jpg" width="1067" height="1600" alt="椰林大道前相擁微笑" loading="lazy" draggable="false"></figure>
+      <figure class="g-item p"><img src="assets/gallery/g09.jpg" width="1067" height="1600" alt="花藝背景前合影" loading="lazy" draggable="false"></figure>
+      <figure class="g-item p"><img src="assets/gallery/g10.jpg" width="1067" height="1600" alt="花藝背景前依偎" loading="lazy" draggable="false"></figure>
+      <figure class="g-item l"><img src="assets/gallery/g11.jpg" width="1600" height="1067" alt="台北夜景前合影" loading="lazy" draggable="false"></figure>
+      <figure class="g-item l"><img src="assets/gallery/g12.jpg" width="1600" height="1067" alt="夜景前親吻臉頰" loading="lazy" draggable="false"></figure>
+      <figure class="g-item l"><img src="assets/gallery/g13.jpg" width="1600" height="1067" alt="新郎側身特寫" loading="lazy" draggable="false"></figure>
+      <figure class="g-item p"><img src="assets/gallery/g14.jpg" width="1067" height="1600" alt="淺藍禮服與灰色西裝" loading="lazy" draggable="false"></figure>
+      <figure class="g-item p"><img src="assets/gallery/g15.jpg" width="1067" height="1600" alt="窗邊相依" loading="lazy" draggable="false"></figure>
+      <figure class="g-item p"><img src="assets/gallery/g16.jpg" width="1067" height="1600" alt="拱形窗前擁抱" loading="lazy" draggable="false"></figure>
+      <figure class="g-item p"><img src="assets/gallery/g17.jpg" width="1067" height="1600" alt="新郎手捧花束" loading="lazy" draggable="false"></figure>
+      <figure class="g-item p"><img src="assets/gallery/g18.jpg" width="1067" height="1600" alt="地板上相視而笑" loading="lazy" draggable="false"></figure>
+      <figure class="g-item l"><img src="assets/gallery/g19.jpg" width="1600" height="1067" alt="房間裡的新娘與新郎" loading="lazy" draggable="false"></figure>
+      <figure class="g-item l"><img src="assets/gallery/g20.jpg" width="1600" height="1067" alt="與家人合影" loading="lazy" draggable="false"></figure>
+      </div>
+      <button class="g-btn g-next" type="button" aria-label="下一張">&#8250;</button>
     </div>
   </section>
 
@@ -162,7 +179,7 @@
     <p class="contact-note reveal">加入好友後，請傳送您的姓名，方便我們確認身分 ♡</p>
   </section>
 
-  <div class="photo-band closing">
+  <div class="photo-band closing protect">
     <picture>
       <source media="(min-width:701px)" srcset="assets/l2.jpg">
       <img src="assets/p4.jpg" alt="" loading="lazy">

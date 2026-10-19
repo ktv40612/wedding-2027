@@ -263,26 +263,85 @@ body{
 }
 
 /* ---------- Gallery ---------- */
-.section > .gallery-grid{
-  max-width:53.75rem;
-  columns:1;
-  column-gap:1.25rem;
+.section.gallery{padding-left:0; padding-right:0;}
+.gallery-hint{
+  margin-top:-2rem;
+  margin-bottom:1.75rem;
+  font-size:0.75rem;
+  letter-spacing:.3em;
+  color:var(--ink-dim);
 }
-@media (min-width:900px){
-  .section > .gallery-grid{columns:2;}
+.section.gallery > .gallery-scroller{
+  position:relative;
+  max-width:none;
+  margin:0;
 }
-.gallery-item{
-  break-inside:avoid;
-  margin-bottom:0.875rem;
+.gallery-track{
+  display:flex;
+  align-items:center;
+  gap:0.875rem;
+  padding:0.5rem 1rem 1rem;
+  overflow-x:auto;
+  scroll-snap-type:x mandatory;
+  scroll-padding:0 1rem;
+  -webkit-overflow-scrolling:touch;
+  scrollbar-width:thin;
+  scrollbar-color:var(--red) transparent;
+}
+.g-item{
+  flex:none;
+  margin:0;
   padding:0.375rem;
+  scroll-snap-align:center;
   background:var(--paper-3);
   border:1px solid var(--line);
   box-shadow:0 6px 18px rgba(60,35,25,.08);
 }
-.gallery-item img{
-  width:100%;
-  height:auto;
-  display:block;
+.g-item img{display:block; width:100%; height:auto;}
+.g-item.p{width:76vw; max-width:26rem;}
+.g-item.l{width:90vw; max-width:46rem;}
+
+.g-btn{
+  display:none;
+  position:absolute;
+  top:50%;
+  transform:translateY(-50%);
+  z-index:3;
+  width:3rem; height:3rem;
+  border-radius:50%;
+  border:1px solid var(--line);
+  background:rgba(251,247,239,.92);
+  color:var(--red);
+  font-size:1.6rem;
+  line-height:1;
+  cursor:pointer;
+}
+.g-btn:hover{background:var(--red); color:var(--cream);}
+.g-prev{left:1.25rem;}
+.g-next{right:1.25rem;}
+
+@media (min-width:701px){
+  .g-item.p, .g-item.l{width:auto; max-width:none;}
+  .g-item img{width:auto; height:68vh; max-height:46rem; min-height:22rem;}
+  .gallery-track{gap:1.25rem; padding:0.5rem 3rem 1.25rem; scroll-padding:0 3rem; cursor:grab;}
+  .gallery-track.dragging{cursor:grabbing; scroll-snap-type:none;}
+}
+@media (hover:hover) and (min-width:701px){
+  .g-btn{display:block;}
+}
+
+/* ---------- 照片保護（防右鍵存圖、拖曳、長按存圖、列印） ---------- */
+.protect, .protect img{
+  -webkit-user-select:none;
+  user-select:none;
+  -webkit-touch-callout:none;
+}
+.protect img{
+  pointer-events:none;
+  -webkit-user-drag:none;
+}
+@media print{
+  .protect img{display:none;}
 }
 
 /* ---------- RSVP band ---------- */
@@ -532,7 +591,6 @@ body{
 @media (min-width:1024px){
   html{font-size:18px;}
   .section > *{max-width:42rem;}
-  .section > .gallery-grid{max-width:68rem;}
   .names{font-size:5.5rem;}
   .rsvp-page{max-width:42rem;}
 }
@@ -624,7 +682,3 @@ body{
   .band-trip img{aspect-ratio:2/3; max-height:none; object-position:50% 50%;}
 }
 
-.section.gallery{padding-left:0.75rem; padding-right:0.75rem;}
-@media (min-width:640px){
-  .section.gallery{padding-left:1.75rem; padding-right:1.75rem;}
-}
