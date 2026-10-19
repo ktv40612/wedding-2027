@@ -492,7 +492,10 @@ body{
 .field input[type="text"],
 .field input[type="tel"],
 .field input[type="email"],
-.field input[type="number"]{
+.field input[type="number"],
+.field textarea{
+  display:block;
+  resize:vertical;
   width:100%;
   background:var(--paper-3);
   border:1px solid var(--line);
@@ -504,7 +507,8 @@ body{
   outline:none;
   transition:border-color .25s ease;
 }
-.field input:focus{border-color:var(--red);}
+.field input:focus,
+.field textarea:focus{border-color:var(--red);}
 
 .choice-group{display:flex; flex-direction:column; gap:0.875rem; margin-top:0.75rem;}
 .choice-group label{

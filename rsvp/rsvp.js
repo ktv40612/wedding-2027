@@ -6,13 +6,30 @@ const ENTRY = {
   email: 'entry.1645811181',
   lunchCount: 'entry.1224930740',
   kidsChair: 'entry.1414383604',
-  veggieCount: 'entry.1620384439',
+  veggieCount: 'entry.1128587045',
   specialDiet: 'entry.62874672',
   ceremonyCount: 'entry.1910510627',
-  inviteMethod: 'entry.843419276',
-  address: 'entry.1229085839',
-  inviteEmail: 'entry.342019937',
+  address: 'entry.342019937',
 };
+
+const CEREMONY_NO = '都不會參加【證婚儀式】，午宴見！';
+
+// Google 表單這幾題是單選＋「其他」；選項以外的數字必須用「其他」格式送出才會被收下
+const CHOICES = {
+  lunchCount: ['1', '2', '3', '4'],
+  kidsChair: ['0', '1', '2', '3', '4'],
+  veggieCount: ['0', '1', '2', '3', '4'],
+  ceremonyCount: [CEREMONY_NO, '1', '2', '3', '4', '5'],
+};
+
+function appendChoice(data, key, value) {
+  if (CHOICES[key].includes(value)) {
+    data.append(ENTRY[key], value);
+  } else {
+    data.append(ENTRY[key], '__other_option__');
+    data.append(ENTRY[key] + '.other_option_response', value);
+  }
+}
 
 const ceremonyRadios = document.querySelectorAll('input[name="ceremonyAttend"]');
 const ceremonyCountWrap = document.getElementById('ceremonyCountWrap');
@@ -25,18 +42,6 @@ ceremonyRadios.forEach(r => r.addEventListener('change', () => {
   if (!yes) ceremonyCountInput.value = '';
 }));
 
-const paperCheck = document.getElementById('f-invite-paper');
-const eCheck = document.getElementById('f-invite-e');
-const paperAddrWrap = document.getElementById('paperAddrWrap');
-const eInviteEmailWrap = document.getElementById('eInviteEmailWrap');
-
-paperCheck.addEventListener('change', () => {
-  paperAddrWrap.style.display = paperCheck.checked ? 'block' : 'none';
-});
-eCheck.addEventListener('change', () => {
-  eInviteEmailWrap.style.display = eCheck.checked ? 'block' : 'none';
-});
-
 const form = document.getElementById('rsvpForm');
 const submitBtn = document.getElementById('submitBtn');
 const formError = document.getElementById('formError');
@@ -45,11 +50,6 @@ form.addEventListener('submit', async (e) => {
   e.preventDefault();
   formError.style.display = 'none';
 
-  if (!paperCheck.checked && !eCheck.checked) {
-    formError.textContent = '請至少選擇一種喜帖寄送方式。';
-    formError.style.display = 'block';
-    return;
-  }
   if (!form.reportValidity()) return;
 
   submitBtn.disabled = true;
@@ -61,15 +61,12 @@ form.addEventListener('submit', async (e) => {
   data.append(ENTRY.name, form.name.value.trim());
   data.append(ENTRY.phone, form.phone.value.trim());
   data.append(ENTRY.email, form.email.value.trim());
-  data.append(ENTRY.lunchCount, form.lunchCount.value);
-  data.append(ENTRY.kidsChair, form.kidsChair.value);
-  data.append(ENTRY.veggieCount, form.veggieCount.value);
+  appendChoice(data, 'lunchCount', String(form.lunchCount.value).trim());
+  appendChoice(data, 'kidsChair', String(form.kidsChair.value).trim());
+  appendChoice(data, 'veggieCount', String(form.veggieCount.value).trim());
   data.append(ENTRY.specialDiet, form.specialDiet.value.trim());
-  data.append(ENTRY.ceremonyCount, ceremonyYes ? ceremonyCountInput.value : '都不會參加【證婚儀式】，午宴見！');
-  if (paperCheck.checked) data.append(ENTRY.inviteMethod, '請寄給我紙本喜帖');
-  if (eCheck.checked) data.append(ENTRY.inviteMethod, '請寄給我電子喜帖');
+  appendChoice(data, 'ceremonyCount', ceremonyYes ? String(ceremonyCountInput.value).trim() : CEREMONY_NO);
   data.append(ENTRY.address, form.address.value.trim());
-  data.append(ENTRY.inviteEmail, form.inviteEmail.value.trim());
 
   try {
     await fetch(GOOGLE_FORM_ACTION, { method: 'POST', mode: 'no-cors', body: data });
