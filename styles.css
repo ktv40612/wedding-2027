@@ -687,3 +687,19 @@ body{
   .band-trip img{aspect-ratio:2/3; max-height:none; object-position:50% 50%;}
 }
 
+
+/* ---------- 手機首頁：文字區壓縮，避免蓋到人臉 ---------- */
+@media (max-width:700px){
+  .hero-content{padding-bottom:2.75rem;}
+  .names{
+    display:flex;
+    justify-content:center;
+    align-items:baseline;
+    gap:.3em;
+    font-size:clamp(2.4rem, 12vw, 3.4rem);
+    line-height:1.2;
+  }
+  .names .amp{display:inline; font-size:.45em; margin:0;}
+  .date{margin-top:1rem;}
+  .scroll-cue{height:2.25rem; margin-top:1.5rem;}
+}
