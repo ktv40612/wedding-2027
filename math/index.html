@@ -1,0 +1,105 @@
+<!doctype html>
+<html lang="zh-Hant">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex, nofollow">
+<title>大成數學 互動講義</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@400;500;700;900&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --blue:#1d6fc8; --blue-d:#134f97; --sky:#dbe8f8; --grid:#c9dbf2;
+    --pink:#e5177c; --yellow:#ffc53d; --ink:#1d2a3a; --muted:#6b7a8c; --card:#fff;
+  }
+  *{box-sizing:border-box}
+  body{margin:0;font-family:"Noto Sans TC",system-ui,sans-serif;color:var(--ink);
+    background:#f4f8fd;
+    background-image:linear-gradient(var(--grid) 1px,transparent 1px),linear-gradient(90deg,var(--grid) 1px,transparent 1px);
+    background-size:28px 28px;}
+  header{background:#fff;border-bottom:4px solid var(--blue);position:sticky;top:0;z-index:5}
+  .bar{max-width:1120px;margin:0 auto;padding:10px 16px;display:flex;align-items:center;gap:14px}
+  .bar img{height:52px}
+  .brand{font-weight:900;font-size:22px;color:var(--blue-d);letter-spacing:1px}
+  .brand small{display:block;font-size:12px;font-weight:500;color:var(--muted);letter-spacing:2px}
+  .tag{margin-left:auto;background:var(--yellow);color:#5a3b00;font-weight:900;font-size:13px;padding:5px 12px;border-radius:99px}
+  main{max-width:1120px;margin:0 auto;padding:24px 16px 60px}
+  .hero{border-radius:22px;overflow:hidden;box-shadow:0 8px 24px rgba(19,79,151,.15);background:#fff}
+  .hero{display:flex;align-items:center;gap:20px;flex-wrap:wrap;padding:28px 30px;
+    background:linear-gradient(135deg,#1d6fc8,#3f93e6);background-image:linear-gradient(rgba(255,255,255,.12) 1px,transparent 1px),linear-gradient(90deg,rgba(255,255,255,.12) 1px,transparent 1px),linear-gradient(135deg,#1d6fc8,#4a9cec);background-size:26px 26px,26px 26px,auto}
+  .hero-t{flex:1;min-width:240px;color:#fff}
+  .hero h1{margin:0;font-size:clamp(26px,4vw,40px);font-weight:900;letter-spacing:2px;text-shadow:0 3px 0 #134f97}
+  .hero p{margin:8px 0 0;font-size:16px;opacity:.95}
+  .hero-b{display:flex;flex-direction:column;gap:8px;background:#fff;border-radius:18px;padding:10px 14px}
+  .hero-b img{height:58px;display:block}
+  @media (max-width:560px){.hero{padding:22px 18px}.hero-b{flex-direction:row;overflow-x:auto;max-width:100%}.hero-b img{height:44px}}
+  h2{font-size:20px;margin:30px 0 4px;color:var(--blue-d)}
+  .sub{color:var(--muted);font-size:14px;margin:0 0 16px}
+  .shelf{display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:18px}
+  .unit{background:var(--card);border-radius:18px;overflow:hidden;box-shadow:0 4px 14px rgba(19,79,151,.12);
+    display:flex;flex-direction:column;text-decoration:none;color:inherit;transition:transform .15s,box-shadow .15s;border:3px solid transparent}
+  a.unit:hover{transform:translateY(-4px);box-shadow:0 10px 24px rgba(19,79,151,.22);border-color:var(--blue)}
+  .thumb{aspect-ratio:3/4;background:#eef3fa;position:relative;overflow:hidden}
+  .thumb img{width:100%;height:100%;object-fit:cover;object-position:top}
+  .ribbon{position:absolute;top:12px;left:-6px;background:var(--pink);color:#fff;font-weight:900;font-size:13px;padding:4px 14px 4px 18px;border-radius:0 99px 99px 0}
+  .info{padding:12px 14px 14px}
+  .info b{display:block;font-size:17px}
+  .info span{font-size:13px;color:var(--muted)}
+  .go{margin-top:10px;display:inline-block;background:var(--blue);color:#fff;font-weight:700;font-size:14px;padding:7px 16px;border-radius:99px}
+  .soon{opacity:.55}
+  .soon .thumb{display:grid;place-items:center;color:var(--muted);font-weight:700;letter-spacing:2px}
+  .feat{display:grid;grid-template-columns:repeat(auto-fit,minmax(230px,1fr));gap:14px;margin-top:10px}
+  .f{background:#fff;border-radius:16px;padding:14px 16px;box-shadow:0 3px 10px rgba(19,79,151,.08);border-left:6px solid var(--blue)}
+  .f:nth-child(2){border-color:var(--pink)} .f:nth-child(3){border-color:var(--yellow)} .f:nth-child(4){border-color:#3bb273}
+  .f b{display:block;margin-bottom:4px}
+  .f span{font-size:14px;color:var(--muted);line-height:1.6}
+  footer{text-align:center;color:var(--muted);font-size:12px;padding:20px}
+  @media (max-width:560px){.bar img{height:40px}.brand{font-size:18px}}
+</style>
+</head>
+<body>
+<header>
+  <div class="bar">
+    <img src="demo/b-class.webp" alt="">
+    <div class="brand">大成數學 互動講義<small>DACHENG MATH · CLASSBOARD</small></div>
+    <span class="tag">DEMO 展示版</span>
+  </div>
+</header>
+
+<main>
+  <div class="hero">
+    <div class="hero-t">
+      <h1>大成數學 互動講義</h1>
+      <p>講義、白板、上課工具，一個網頁全搞定</p>
+    </div>
+    <div class="hero-b">
+      <img src="demo/b-class.webp" alt="">
+      <img src="demo/b-example.webp" alt="">
+      <img src="demo/b-challenge.webp" alt="">
+    </div>
+  </div>
+
+  <h2>我的講義</h2>
+  <p class="sub">點選單元，直接在講義上圈、寫、遮答案上課。</p>
+  <div class="shelf">
+    <a class="unit" href="board.html">
+      <div class="thumb"><img src="demo/t1.webp" alt=""><span class="ribbon">DEMO</span></div>
+      <div class="info"><b>角柱與圓柱</b><span>章節一 柱體的體積 · 3 頁</span><br><span class="go">開始上課 →</span></div>
+    </a>
+    <div class="unit soon"><div class="thumb">即將上架</div><div class="info"><b>最大公因數與最小公倍數</b><span>準備中</span></div></div>
+    <div class="unit soon"><div class="thumb">即將上架</div><div class="info"><b>分數的四則運算</b><span>準備中</span></div></div>
+    <div class="unit soon"><div class="thumb">即將上架</div><div class="info"><b>比與比值</b><span>準備中</span></div></div>
+  </div>
+
+  <h2>上課工具</h2>
+  <div class="feat">
+    <div class="f"><b>✏️ 畫筆／螢光筆</b><span>直接在講義上圈重點，平板、觸控螢幕、電子白板都能寫。</span></div>
+    <div class="f"><b>🙈 蓋板</b><span>先遮住答案，問完學生再一張張掀開。</span></div>
+    <div class="f"><b>🔦 聚光燈／放大</b><span>全班視線集中在老師要講的那一題。</span></div>
+    <div class="f"><b>💾 自動保存</b><span>老師畫的重點下次打開還在，不用重畫。</span></div>
+  </div>
+</main>
+<footer>大成數學 · 內部展示用 DEMO</footer>
+</body>
+</html>

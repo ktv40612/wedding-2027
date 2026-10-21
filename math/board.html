@@ -1,0 +1,411 @@
+<!doctype html>
+<html lang="zh-Hant">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+<meta name="robots" content="noindex, nofollow">
+<title>角柱與圓柱 · 大成數學</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@500;700;900&display=swap" rel="stylesheet">
+<style>
+  :root{--blue:#1d6fc8;--blue-d:#134f97;--pink:#e5177c;--yellow:#ffc53d;--ink:#1d2a3a;--muted:#6b7a8c;--bg:#e9eff7}
+  *{box-sizing:border-box;-webkit-tap-highlight-color:transparent}
+  html,body{margin:0;height:100%;overflow:hidden;font-family:"Noto Sans TC",system-ui,sans-serif;color:var(--ink);background:var(--bg)}
+  body{display:flex;flex-direction:column}
+  button{font-family:inherit;cursor:pointer}
+
+  /* top bar */
+  .top{display:flex;align-items:center;gap:10px;padding:8px 12px;background:#fff;border-bottom:3px solid var(--blue);z-index:10}
+  .top a.back{text-decoration:none;color:var(--blue-d);font-weight:700;font-size:15px;padding:6px 10px;border-radius:10px}
+  .top a.back:hover{background:#eef4fc}
+  .top .ttl{font-weight:900;font-size:17px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+  .top .ttl em{font-style:normal;background:var(--yellow);color:#5a3b00;font-size:12px;padding:2px 8px;border-radius:99px;margin-right:6px;vertical-align:2px}
+  .top .sp{flex:1}
+  .pill{border:0;background:#eef4fc;color:var(--blue-d);font-weight:700;font-size:14px;padding:7px 12px;border-radius:99px}
+  .pill:hover{background:#dce9fa}
+
+  /* stage */
+  .stage{position:relative;flex:1;overflow:hidden;touch-action:none;background:var(--bg)}
+  .sheet{position:absolute;left:0;top:0;transform-origin:0 0;box-shadow:0 10px 30px rgba(19,79,151,.22);background:#fff}
+  .sheet img{display:block;width:100%;height:100%;user-select:none;-webkit-user-drag:none;pointer-events:none}
+  .sheet canvas{position:absolute;inset:0;width:100%;height:100%}
+  .cover{position:absolute;background:repeating-linear-gradient(135deg,#ffd76a 0 22px,#ffc53d 22px 44px);
+    border:6px solid #f2a900;border-radius:18px;display:grid;place-items:center;color:#6b4300;font-weight:900;
+    box-shadow:0 6px 16px rgba(0,0,0,.18);transition:opacity .25s, transform .25s}
+  .cover span{font-size:40px;pointer-events:none}
+  .cover.open{opacity:.12;transform:scale(.98)}
+  .cover .x{position:absolute;right:-50px;top:-50px;width:100px;height:100px;border-radius:50%;border:6px solid #fff;background:var(--pink);color:#fff;font-size:60px;line-height:1;font-weight:900;display:none}
+  body.t-cover .cover .x{display:block}
+  .spot{position:absolute;inset:0;pointer-events:none;display:none;
+    background:radial-gradient(circle var(--r,170px) at var(--x,50%) var(--y,50%),transparent 0 98%,rgba(10,20,40,.72) 100%)}
+  body.t-spot .spot{display:block}
+
+  /* toolbar */
+  .tools{display:flex;align-items:center;gap:6px;padding:8px 10px;background:#fff;border-top:3px solid var(--blue);overflow-x:auto;z-index:10;scrollbar-width:none}
+  .tools::-webkit-scrollbar{display:none}
+  .grp{display:flex;align-items:center;gap:4px;padding-right:8px;margin-right:2px;border-right:2px solid #e3ebf6}
+  .grp:last-child{border:0}
+  .tb{flex:none;min-width:52px;height:52px;border:2px solid transparent;border-radius:14px;background:#f3f7fc;
+    display:flex;flex-direction:column;align-items:center;justify-content:center;gap:1px;font-size:20px;color:var(--ink);padding:0 6px}
+  .tb small{font-size:11px;font-weight:700;color:var(--muted)}
+  .tb:hover{background:#e6eff9}
+  .tb.on{background:var(--blue);border-color:var(--blue-d);color:#fff}
+  .tb.on small{color:#dfeaff}
+  .sw{flex:none;width:30px;height:30px;border-radius:50%;border:3px solid #fff;box-shadow:0 0 0 2px #cfdbea}
+  .sw.on{box-shadow:0 0 0 3px var(--ink)}
+  .sz{flex:none;width:36px;height:36px;border-radius:10px;border:0;background:#f3f7fc;display:grid;place-items:center}
+  .sz i{display:block;border-radius:50%;background:var(--ink)}
+  .sz.on{background:#dce9fa;box-shadow:inset 0 0 0 2px var(--blue)}
+  .pg{font-weight:900;font-size:15px;min-width:54px;text-align:center}
+
+  /* page strip */
+  .strip{position:absolute;right:12px;top:12px;bottom:12px;width:132px;background:#fff;border-radius:16px;box-shadow:0 8px 24px rgba(19,79,151,.2);
+    padding:10px;overflow-y:auto;display:none;z-index:8}
+  .strip.show{display:block}
+  .strip button{display:block;width:100%;border:3px solid transparent;border-radius:10px;padding:0;margin-bottom:10px;background:#fff;position:relative}
+  .strip button.on{border-color:var(--pink)}
+  .strip img{display:block;width:100%;border-radius:7px}
+  .strip b{position:absolute;left:6px;bottom:6px;background:var(--blue);color:#fff;font-size:12px;padding:1px 7px;border-radius:99px}
+
+  .toast{position:fixed;left:50%;top:70px;transform:translateX(-50%);background:var(--ink);color:#fff;padding:8px 16px;border-radius:99px;font-size:14px;font-weight:700;opacity:0;transition:opacity .2s;pointer-events:none;z-index:20}
+  .toast.show{opacity:.92}
+  @media (max-width:640px){.top .ttl{font-size:15px}.pill.hide-sm{display:none}}
+</style>
+</head>
+<body class="t-pen">
+<div class="top">
+  <a class="back" href="./">← 講義列表</a>
+  <div class="ttl"><em>DEMO</em>角柱與圓柱</div>
+  <div class="sp"></div>
+  <button class="pill" id="btnPages">▦ 頁面</button>
+  <button class="pill hide-sm" id="btnFull">⛶ 全螢幕</button>
+</div>
+
+<div class="stage" id="stage">
+  <div class="sheet" id="sheet">
+    <img id="pageImg" alt="">
+    <canvas id="ink"></canvas>
+  </div>
+  <div class="spot" id="spot"></div>
+  <div class="strip" id="strip"></div>
+</div>
+
+<div class="tools" id="tools">
+  <div class="grp">
+    <button class="tb" data-tool="hand" title="移動（H）">✋<small>移動</small></button>
+    <button class="tb on" data-tool="pen" title="畫筆（P）">✏️<small>畫筆</small></button>
+    <button class="tb" data-tool="hl" title="螢光筆（L）">🖍️<small>螢光筆</small></button>
+    <button class="tb" data-tool="eraser" title="板擦（E）">🧽<small>板擦</small></button>
+  </div>
+  <div class="grp" id="colors"></div>
+  <div class="grp" id="sizes"></div>
+  <div class="grp">
+    <button class="tb" data-tool="cover" title="蓋板">🙈<small>蓋板</small></button>
+    <button class="tb" data-tool="spot" title="聚光燈">🔦<small>聚光燈</small></button>
+  </div>
+  <div class="grp">
+    <button class="tb" id="undo" title="復原（Ctrl+Z）">↶<small>復原</small></button>
+    <button class="tb" id="redo" title="重做（Ctrl+Y）">↷<small>重做</small></button>
+    <button class="tb" id="clear" title="清除本頁">🗑️<small>清除</small></button>
+  </div>
+  <div class="grp">
+    <button class="tb" id="zout" title="縮小">➖<small>縮小</small></button>
+    <button class="tb" id="fit" title="整頁">⤢<small>整頁</small></button>
+    <button class="tb" id="fitw" title="放大到寬度">↔<small>滿寬</small></button>
+    <button class="tb" id="zin" title="放大">➕<small>放大</small></button>
+  </div>
+  <div class="grp">
+    <button class="tb" id="prev" title="上一頁（←）">◀<small>上一頁</small></button>
+    <span class="pg" id="pgno">1 / 3</span>
+    <button class="tb" id="next" title="下一頁（→）">▶<small>下一頁</small></button>
+  </div>
+</div>
+<div class="toast" id="toast"></div>
+
+<script>
+(() => {
+  const PAGES = ['demo/p1.webp','demo/p2.webp','demo/p3.webp'];
+  const THUMBS = ['demo/t1.webp','demo/t2.webp','demo/t3.webp'];
+  const W = 1820, H = 2574;               // page image size in px
+  const KEY = 'dcmath-demo-v1';
+  const COLORS = ['#e8202a','#1d6fc8','#1d2a3a','#16a05a','#e5177c'];
+  const SIZES = [3, 5, 9];
+
+  const $ = id => document.getElementById(id);
+  const stage = $('stage'), sheet = $('sheet'), img = $('pageImg'), cv = $('ink'), ctx = cv.getContext('2d');
+  cv.width = W; cv.height = H;
+  sheet.style.width = W + 'px'; sheet.style.height = H + 'px';
+
+  // ---- state ----
+  let page = 0, tool = 'pen', color = COLORS[0], size = SIZES[1];
+  let view = {s: 1, x: 0, y: 0};
+  let data = load();                       // data[page] = {strokes:[], covers:[]}
+  const redoStack = PAGES.map(() => []);
+
+  function load() {
+    try { const d = JSON.parse(localStorage.getItem(KEY)); if (Array.isArray(d) && d.length === PAGES.length) return d; } catch (e) {}
+    return PAGES.map(() => ({strokes: [], covers: []}));
+  }
+  function save() { try { localStorage.setItem(KEY, JSON.stringify(data)); } catch (e) {} }
+  const cur = () => data[page];
+
+  // ---- view ----
+  function apply() { sheet.style.transform = `translate(${view.x}px,${view.y}px) scale(${view.s})`; }
+  function fitPage() {
+    const r = stage.getBoundingClientRect(), pad = 24;
+    view.s = Math.min((r.width - pad * 2) / W, (r.height - pad * 2) / H);
+    view.x = (r.width - W * view.s) / 2; view.y = (r.height - H * view.s) / 2; apply();
+  }
+  function fitWidth() {
+    const r = stage.getBoundingClientRect(), pad = 16;
+    view.s = (r.width - pad * 2) / W; view.x = pad; view.y = pad; apply();
+  }
+  function zoomAt(f, cx, cy) {
+    const r = stage.getBoundingClientRect();
+    if (cx == null) { cx = r.width / 2; cy = r.height / 2; }
+    const ns = Math.max(0.1, Math.min(4, view.s * f));
+    view.x = cx - (cx - view.x) * ns / view.s; view.y = cy - (cy - view.y) * ns / view.s; view.s = ns; apply();
+  }
+  function toPage(e) {
+    const r = sheet.getBoundingClientRect();
+    return [(e.clientX - r.left) / r.width * W, (e.clientY - r.top) / r.height * H];
+  }
+
+  // ---- drawing ----
+  function drawStroke(s) {
+    const p = s.pts; if (!p.length) return;
+    ctx.save();
+    ctx.lineCap = s.hl ? 'butt' : 'round'; ctx.lineJoin = 'round';
+    ctx.strokeStyle = s.c; ctx.lineWidth = s.w; ctx.globalAlpha = s.hl ? 0.38 : 1;
+    if (s.hl) ctx.globalCompositeOperation = 'multiply';
+    ctx.beginPath(); ctx.moveTo(p[0][0], p[0][1]);
+    if (p.length === 1) ctx.lineTo(p[0][0] + 0.1, p[0][1]);
+    for (let i = 1; i < p.length - 1; i++) {
+      const mx = (p[i][0] + p[i + 1][0]) / 2, my = (p[i][1] + p[i + 1][1]) / 2;
+      ctx.quadraticCurveTo(p[i][0], p[i][1], mx, my);
+    }
+    if (p.length > 1) ctx.lineTo(p[p.length - 1][0], p[p.length - 1][1]);
+    ctx.stroke(); ctx.restore();
+  }
+  function redraw() { ctx.clearRect(0, 0, W, H); cur().strokes.forEach(drawStroke); }
+
+  function renderCovers() {
+    sheet.querySelectorAll('.cover').forEach(n => n.remove());
+    cur().covers.forEach((c, i) => {
+      const d = document.createElement('div');
+      d.className = 'cover' + (c.open ? ' open' : '');
+      Object.assign(d.style, {left: c.x + 'px', top: c.y + 'px', width: c.w + 'px', height: c.h + 'px'});
+      d.innerHTML = '<span>？ 點我掀開</span><button class="x" title="刪除蓋板">×</button>';
+      d.querySelector('span').style.fontSize = Math.max(56, Math.min(c.w / 6, c.h / 3)) + 'px';
+      d.querySelector('.x').addEventListener('pointerdown', ev => {
+        ev.stopPropagation(); pushUndo({type: 'cover-del', cover: c, i}); cur().covers.splice(i, 1); renderCovers(); save();
+      });
+      d.addEventListener('pointerdown', ev => {
+        ev.stopPropagation(); c.open = !c.open; d.classList.toggle('open', c.open); save();
+      });
+      sheet.appendChild(d);
+    });
+  }
+
+  // undo stack holds actions per page
+  const undoStack = PAGES.map(() => []);
+  function pushUndo(a) { undoStack[page].push(a); redoStack[page].length = 0; }
+  function undo() {
+    const a = undoStack[page].pop(); if (!a) return;
+    const d = cur();
+    if (a.type === 'stroke') d.strokes.splice(d.strokes.indexOf(a.stroke), 1);
+    else if (a.type === 'erase') d.strokes.splice(a.i, 0, a.stroke);
+    else if (a.type === 'clear') { d.strokes = a.strokes; d.covers = a.covers; }
+    else if (a.type === 'cover') d.covers.splice(d.covers.indexOf(a.cover), 1);
+    else if (a.type === 'cover-del') d.covers.splice(a.i, 0, a.cover);
+    redoStack[page].push(a); redraw(); renderCovers(); save();
+  }
+  function redo() {
+    const a = redoStack[page].pop(); if (!a) return;
+    const d = cur();
+    if (a.type === 'stroke') d.strokes.push(a.stroke);
+    else if (a.type === 'erase') d.strokes.splice(d.strokes.indexOf(a.stroke), 1);
+    else if (a.type === 'clear') { d.strokes = []; d.covers = []; }
+    else if (a.type === 'cover') d.covers.push(a.cover);
+    else if (a.type === 'cover-del') d.covers.splice(d.covers.indexOf(a.cover), 1);
+    undoStack[page].push(a); redraw(); renderCovers(); save();
+  }
+
+  function eraseAt(x, y) {
+    const d = cur(), R = 22;
+    for (let i = d.strokes.length - 1; i >= 0; i--) {
+      const s = d.strokes[i];
+      if (s.pts.some(p => Math.hypot(p[0] - x, p[1] - y) < R + s.w / 2)) {
+        d.strokes.splice(i, 1); pushUndo({type: 'erase', stroke: s, i}); redraw(); save();
+      }
+    }
+  }
+
+  // ---- pointer handling ----
+  const pointers = new Map();
+  let act = null;           // current gesture
+  let pinch = null;
+
+  stage.addEventListener('pointerdown', e => {
+    stage.setPointerCapture(e.pointerId);
+    pointers.set(e.pointerId, e);
+    if (pointers.size === 2) {                     // two fingers: pinch-zoom / pan
+      if (act && act.type === 'stroke') { cur().strokes.pop(); redraw(); }
+      act = null;
+      const [a, b] = [...pointers.values()];
+      pinch = {d: Math.hypot(a.clientX - b.clientX, a.clientY - b.clientY), cx: (a.clientX + b.clientX) / 2, cy: (a.clientY + b.clientY) / 2};
+      return;
+    }
+    const [x, y] = toPage(e);
+    if (tool === 'hand' || tool === 'spot' || e.button === 1) {
+      act = {type: 'pan', sx: e.clientX, sy: e.clientY, vx: view.x, vy: view.y};
+    } else if (tool === 'pen' || tool === 'hl') {
+      // width is chosen in screen px, stored in page px
+      const s = {c: tool === 'hl' ? '#ffd400' : color, w: Math.round((tool === 'hl' ? size * 3 + 14 : size) / view.s), hl: tool === 'hl', pts: [[x, y]]};
+      cur().strokes.push(s); act = {type: 'stroke', s}; redraw();
+    } else if (tool === 'eraser') {
+      act = {type: 'erase'}; eraseAt(x, y);
+    } else if (tool === 'cover') {
+      const el = document.createElement('div'); el.className = 'cover'; sheet.appendChild(el);
+      act = {type: 'cover', x0: x, y0: y, el};
+    }
+    moveSpot(e);
+  });
+
+  stage.addEventListener('pointermove', e => {
+    moveSpot(e);
+    if (!pointers.has(e.pointerId)) return;
+    pointers.set(e.pointerId, e);
+    if (pinch && pointers.size === 2) {
+      const [a, b] = [...pointers.values()];
+      const d = Math.hypot(a.clientX - b.clientX, a.clientY - b.clientY), cx = (a.clientX + b.clientX) / 2, cy = (a.clientY + b.clientY) / 2;
+      const r = stage.getBoundingClientRect();
+      view.x += cx - pinch.cx; view.y += cy - pinch.cy;
+      zoomAt(d / pinch.d, cx - r.left, cy - r.top);
+      pinch = {d, cx, cy}; return;
+    }
+    if (!act) return;
+    if (act.type === 'pan') { view.x = act.vx + e.clientX - act.sx; view.y = act.vy + e.clientY - act.sy; apply(); }
+    else if (act.type === 'stroke') {
+      const evs = e.getCoalescedEvents ? e.getCoalescedEvents() : [e];
+      evs.forEach(ev => act.s.pts.push(toPage(ev))); redraw();
+    } else if (act.type === 'erase') { const [x, y] = toPage(e); eraseAt(x, y); }
+    else if (act.type === 'cover') {
+      const [x, y] = toPage(e);
+      Object.assign(act.el.style, {left: Math.min(x, act.x0) + 'px', top: Math.min(y, act.y0) + 'px', width: Math.abs(x - act.x0) + 'px', height: Math.abs(y - act.y0) + 'px'});
+      act.x1 = x; act.y1 = y;
+    }
+  });
+
+  function end(e) {
+    pointers.delete(e.pointerId);
+    if (pointers.size < 2) pinch = null;
+    if (!act) return;
+    if (act.type === 'stroke') {
+      act.s.pts = act.s.pts.map(p => [Math.round(p[0]), Math.round(p[1])]);
+      pushUndo({type: 'stroke', stroke: act.s}); save();
+    } else if (act.type === 'cover') {
+      act.el.remove();
+      if (act.x1 != null && Math.abs(act.x1 - act.x0) > 40 && Math.abs(act.y1 - act.y0) > 30) {
+        const c = {x: Math.round(Math.min(act.x0, act.x1)), y: Math.round(Math.min(act.y0, act.y1)), w: Math.round(Math.abs(act.x1 - act.x0)), h: Math.round(Math.abs(act.y1 - act.y0)), open: false};
+        cur().covers.push(c); pushUndo({type: 'cover', cover: c}); renderCovers(); save();
+        toast('蓋好了！上課時點一下蓋板就能掀開');
+      }
+    }
+    act = null;
+  }
+  stage.addEventListener('pointerup', end);
+  stage.addEventListener('pointercancel', end);
+
+  stage.addEventListener('wheel', e => {
+    e.preventDefault();
+    const r = stage.getBoundingClientRect();
+    if (e.ctrlKey || e.metaKey) zoomAt(Math.exp(-e.deltaY * 0.002), e.clientX - r.left, e.clientY - r.top);
+    else { view.x -= e.deltaX; view.y -= e.deltaY; apply(); }
+  }, {passive: false});
+
+  const spot = $('spot');
+  function moveSpot(e) {
+    if (tool !== 'spot') return;
+    const r = stage.getBoundingClientRect();
+    spot.style.setProperty('--x', (e.clientX - r.left) + 'px');
+    spot.style.setProperty('--y', (e.clientY - r.top) + 'px');
+    spot.style.setProperty('--r', Math.max(120, Math.min(r.width, r.height) * 0.22) + 'px');
+  }
+
+  // ---- pages ----
+  const strip = $('strip');
+  THUMBS.forEach((t, i) => {
+    const b = document.createElement('button');
+    b.innerHTML = `<img src="${t}" alt=""><b>${i + 1}</b>`;
+    b.onclick = () => go(i);
+    strip.appendChild(b);
+  });
+  function go(i) {
+    if (i < 0 || i >= PAGES.length) return;
+    page = i; img.src = PAGES[i];
+    $('pgno').textContent = `${i + 1} / ${PAGES.length}`;
+    [...strip.children].forEach((b, j) => b.classList.toggle('on', j === i));
+    redraw(); renderCovers(); fitPage();
+  }
+  PAGES.forEach(p => { const im = new Image(); im.src = p; });   // preload
+
+  // ---- toolbar ----
+  function setTool(t) {
+    tool = t;
+    document.querySelectorAll('[data-tool]').forEach(b => b.classList.toggle('on', b.dataset.tool === t));
+    document.body.className = 't-' + t;
+    stage.style.cursor = t === 'hand' ? 'grab' : t === 'spot' ? 'none' : t === 'eraser' ? 'cell' : 'crosshair';
+    if (t === 'spot') { const r = stage.getBoundingClientRect(); moveSpot({clientX: r.left + r.width / 2, clientY: r.top + r.height / 2}); }
+  }
+  document.querySelectorAll('[data-tool]').forEach(b => b.onclick = () => setTool(b.dataset.tool));
+
+  COLORS.forEach((c, i) => {
+    const b = document.createElement('button'); b.className = 'sw' + (i ? '' : ' on'); b.style.background = c;
+    b.onclick = () => { color = c; document.querySelectorAll('.sw').forEach(x => x.classList.toggle('on', x === b)); if (tool !== 'pen') setTool('pen'); };
+    $('colors').appendChild(b);
+  });
+  SIZES.forEach((s, i) => {
+    const b = document.createElement('button'); b.className = 'sz' + (i === 1 ? ' on' : '');
+    b.innerHTML = `<i style="width:${s * 2 + 2}px;height:${s * 2 + 2}px"></i>`;
+    b.onclick = () => { size = s; document.querySelectorAll('.sz').forEach(x => x.classList.toggle('on', x === b)); };
+    $('sizes').appendChild(b);
+  });
+
+  $('undo').onclick = undo; $('redo').onclick = redo;
+  $('clear').onclick = () => {
+    const d = cur(); if (!d.strokes.length && !d.covers.length) return;
+    pushUndo({type: 'clear', strokes: d.strokes, covers: d.covers});
+    d.strokes = []; d.covers = []; redraw(); renderCovers(); save(); toast('已清除本頁，按「復原」可救回');
+  };
+  $('zin').onclick = () => zoomAt(1.25); $('zout').onclick = () => zoomAt(0.8);
+  $('fit').onclick = fitPage; $('fitw').onclick = fitWidth;
+  $('prev').onclick = () => go(page - 1); $('next').onclick = () => go(page + 1);
+  $('btnPages').onclick = () => strip.classList.toggle('show');
+  $('btnFull').onclick = () => {
+    if (document.fullscreenElement) document.exitFullscreen();
+    else document.documentElement.requestFullscreen && document.documentElement.requestFullscreen();
+  };
+
+  document.addEventListener('keydown', e => {
+    if ((e.ctrlKey || e.metaKey) && e.key.toLowerCase() === 'z') { e.preventDefault(); e.shiftKey ? redo() : undo(); return; }
+    if ((e.ctrlKey || e.metaKey) && e.key.toLowerCase() === 'y') { e.preventDefault(); redo(); return; }
+    if (e.key === 'ArrowRight' || e.key === 'PageDown') go(page + 1);
+    else if (e.key === 'ArrowLeft' || e.key === 'PageUp') go(page - 1);
+    else if (e.key === 'p') setTool('pen');
+    else if (e.key === 'l') setTool('hl');
+    else if (e.key === 'e') setTool('eraser');
+    else if (e.key === 'h') setTool('hand');
+  });
+
+  let tt;
+  function toast(msg) { const t = $('toast'); t.textContent = msg; t.classList.add('show'); clearTimeout(tt); tt = setTimeout(() => t.classList.remove('show'), 2200); }
+
+  window.addEventListener('resize', fitPage);
+  setTool('pen');
+  go(0);
+})();
+</script>
+</body>
+</html>
