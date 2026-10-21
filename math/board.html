@@ -70,6 +70,15 @@
 
   .toast{position:fixed;left:50%;top:70px;transform:translateX(-50%);background:var(--ink);color:#fff;padding:8px 16px;border-radius:99px;font-size:14px;font-weight:700;opacity:0;transition:opacity .2s;pointer-events:none;z-index:20}
   .toast.show{opacity:.92}
+  .vmodal{position:fixed;inset:0;background:rgba(10,20,40,.72);display:none;align-items:center;justify-content:center;padding:16px;z-index:30}
+  .vmodal.show{display:flex}
+  .vbox{width:min(1100px,100%);background:#fff;border-radius:20px;overflow:hidden;box-shadow:0 20px 50px rgba(0,0,0,.4)}
+  .vhead{display:flex;align-items:center;gap:12px;padding:12px 16px;border-bottom:3px solid var(--blue)}
+  .vhead div{flex:1;min-width:0}
+  .vhead em{font-style:normal;display:inline-block;background:var(--pink);color:#fff;font-size:12px;font-weight:900;padding:2px 10px;border-radius:99px;margin-right:8px}
+  .vhead b{font-size:16px}
+  .vclose{flex:none;width:40px;height:40px;border-radius:50%;border:0;background:#eef4fc;color:var(--blue-d);font-size:26px;line-height:1}
+  .vbox video{display:block;width:100%;max-height:calc(100vh - 120px);background:#000}
   @media (max-width:640px){.top .ttl{font-size:15px}.pill.hide-sm{display:none}}
 </style>
 </head>
@@ -103,6 +112,7 @@
   <div class="grp">
     <button class="tb" data-tool="cover" title="蓋板">🙈<small>蓋板</small></button>
     <button class="tb" data-tool="spot" title="聚光燈">🔦<small>聚光燈</small></button>
+    <button class="tb" id="btnVideo" title="教學影片">🎬<small>影片</small></button>
   </div>
   <div class="grp">
     <button class="tb" id="undo" title="復原（Ctrl+Z）">↶<small>復原</small></button>
@@ -122,6 +132,16 @@
   </div>
 </div>
 <div class="toast" id="toast"></div>
+
+<div class="vmodal" id="vmodal">
+  <div class="vbox">
+    <div class="vhead">
+      <div><em>大成解題影片</em><b>長方形色紙排正方形（最小公倍數）</b></div>
+      <button class="vclose" id="vclose" title="關閉">×</button>
+    </div>
+    <video id="vid" src="demo/lcm.mp4" poster="demo/lcm.jpg" controls playsinline preload="none"></video>
+  </div>
+</div>
 
 <script>
 (() => {
@@ -383,12 +403,18 @@
   $('fit').onclick = fitPage; $('fitw').onclick = fitWidth;
   $('prev').onclick = () => go(page - 1); $('next').onclick = () => go(page + 1);
   $('btnPages').onclick = () => strip.classList.toggle('show');
+  const vmodal = $('vmodal'), vid = $('vid');
+  $('btnVideo').onclick = () => { vmodal.classList.add('show'); vid.play().catch(() => {}); };
+  const closeVideo = () => { vid.pause(); vmodal.classList.remove('show'); };
+  $('vclose').onclick = closeVideo;
+  vmodal.addEventListener('click', e => { if (e.target === vmodal) closeVideo(); });
   $('btnFull').onclick = () => {
     if (document.fullscreenElement) document.exitFullscreen();
     else document.documentElement.requestFullscreen && document.documentElement.requestFullscreen();
   };
 
   document.addEventListener('keydown', e => {
+    if (vmodal.classList.contains('show')) { if (e.key === 'Escape') closeVideo(); return; }
     if ((e.ctrlKey || e.metaKey) && e.key.toLowerCase() === 'z') { e.preventDefault(); e.shiftKey ? redo() : undo(); return; }
     if ((e.ctrlKey || e.metaKey) && e.key.toLowerCase() === 'y') { e.preventDefault(); redo(); return; }
     if (e.key === 'ArrowRight' || e.key === 'PageDown') go(page + 1);
