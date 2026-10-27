@@ -58,6 +58,8 @@ form.addEventListener('submit', async (e) => {
   const ceremonyYes = document.querySelector('input[name="ceremonyAttend"]:checked')?.value === 'yes';
 
   const data = new FormData();
+  // Google 表單共 5 頁；不帶 pageHistory 只會存第 1 頁（姓名／電話／Email）
+  data.append('pageHistory', '0,1,2,3,4');
   data.append(ENTRY.name, form.name.value.trim());
   data.append(ENTRY.phone, form.phone.value.trim());
   data.append(ENTRY.email, form.email.value.trim());
