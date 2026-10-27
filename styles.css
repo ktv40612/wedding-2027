@@ -723,3 +723,8 @@ body{
     max-height:none;
   }
 }
+
+@media (max-width:700px){
+  .line-button{padding:1rem 1.25rem; letter-spacing:.1em; line-height:1.7;}
+}
+
