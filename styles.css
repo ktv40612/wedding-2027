@@ -711,17 +711,8 @@ body{
 /* ---------- 婚宴資訊與出席回覆之間的直式照片帶 ---------- */
 .band-0 img{object-position:50% 40%;}
 @media (min-width:701px){
-  .photo-band.band-0{
-    display:flex;
-    justify-content:center;
-    background:var(--paper);
-  }
-  .photo-band.band-0 img{
-    width:auto;
-    height:min(88vh, 56rem);
-    aspect-ratio:2/3;
-    max-height:none;
-  }
+  .photo-band.band-0{background:var(--paper);}
+  .g-mobile-only{display:none;}
 }
 
 @media (max-width:700px){
